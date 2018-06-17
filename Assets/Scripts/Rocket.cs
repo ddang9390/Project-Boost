@@ -110,12 +110,12 @@ public class Rocket : MonoBehaviour {
 
     private void gameOver()
     {   
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 
     private void loadNextScene()
     {
         state = State.live;   
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }
