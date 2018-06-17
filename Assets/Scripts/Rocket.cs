@@ -22,8 +22,11 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        thrust();
-        rotate();
+        if (state != State.dying)
+        {
+            thrust();
+            rotate();
+        }
 	}
 
     private void rotate()
@@ -76,18 +79,26 @@ public class Rocket : MonoBehaviour {
                 break;
 
             case "Goal":
+                state = State.transcend;
                 Invoke("loadNextScene", 1f); // parameterise time
                 break;
 
             default:
-                SceneManager.LoadScene(0);
+                state = State.dying;
+                Invoke("gameOver", 1f);
                 break;
         }
 
     }
 
+    private void gameOver()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void loadNextScene()
     {
+        state = State.live;
         SceneManager.LoadScene(1);
     }
 }
