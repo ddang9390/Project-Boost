@@ -19,6 +19,8 @@ public class Rocket : MonoBehaviour {
     [SerializeField] ParticleSystem explosionParticle;
     [SerializeField] ParticleSystem successParticle;
 
+    bool collisionsEnabled = true;
+
     enum State { live, dying, transcend};
     State state = State.live;
 
@@ -30,6 +32,10 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Debug.isDebugBuild)
+        {
+            respondToDebugKeys();
+        }
         if (state == State.live)
         {
             thrust();
@@ -77,9 +83,25 @@ public class Rocket : MonoBehaviour {
         }
     }
 
+    // Only works if 'debug' is true
+    private void respondToDebugKeys()
+    {
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            loadNextScene();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            // toggle collision
+            collisionsEnabled = !collisionsEnabled;
+        }
+        
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(state != State.live){return;} // ignore collision if dead or transcending
+        if(state != State.live || !collisionsEnabled){return;} // ignore collision if dead or transcending
 
         switch (collision.gameObject.tag)
         {
@@ -111,7 +133,7 @@ public class Rocket : MonoBehaviour {
 
     private void gameOver()
     {   
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(0);
     }
 
     private void loadNextScene()
