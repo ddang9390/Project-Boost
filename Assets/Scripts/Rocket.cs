@@ -10,6 +10,9 @@ public class Rocket : MonoBehaviour {
 
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip winSound;
 
     enum State { live, dying, transcend};
     State state = State.live;
@@ -26,10 +29,6 @@ public class Rocket : MonoBehaviour {
         {
             thrust();
             rotate();
-        }
-        else
-        {
-            audioSource.Stop();
         }
 	}
 
@@ -62,7 +61,7 @@ public class Rocket : MonoBehaviour {
             rigidBody.AddRelativeForce(Vector3.up * thrustSpeed);
             if (!audioSource.isPlaying) // so it doesn't layer on top of each other
             {
-                audioSource.Play();
+                audioSource.PlayOneShot(mainEngine);
             }
         }
         else if (audioSource.isPlaying)
@@ -86,26 +85,29 @@ public class Rocket : MonoBehaviour {
 
             case "Goal":
                 state = State.transcend;
+                audioSource.Stop();
+                audioSource.PlayOneShot(winSound);
                 Invoke("loadNextScene", 1f); // parameterise time
                 break;
 
             default:
                 state = State.dying;
+                audioSource.Stop();
+                audioSource.PlayOneShot(deathSound);
                 Invoke("gameOver", 1f);
                 
                 break;
         }
-
     }
 
     private void gameOver()
-    {
+    {   
         SceneManager.LoadScene(0);
     }
 
     private void loadNextScene()
     {
-        state = State.live;
+        state = State.live;   
         SceneManager.LoadScene(1);
     }
 }
