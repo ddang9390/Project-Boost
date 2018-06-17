@@ -14,6 +14,10 @@ public class Rocket : MonoBehaviour {
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip winSound;
 
+    [SerializeField] ParticleSystem thrusterParticle;
+    [SerializeField] ParticleSystem explosionParticle;
+    [SerializeField] ParticleSystem successParticle;
+
     enum State { live, dying, transcend};
     State state = State.live;
 
@@ -63,10 +67,12 @@ public class Rocket : MonoBehaviour {
             {
                 audioSource.PlayOneShot(mainEngine);
             }
+            thrusterParticle.Play();
         }
         else if (audioSource.isPlaying)
         {
             audioSource.Stop();
+            thrusterParticle.Stop();
         }
     }
 
@@ -87,12 +93,14 @@ public class Rocket : MonoBehaviour {
                 state = State.transcend;
                 audioSource.Stop();
                 audioSource.PlayOneShot(winSound);
+                successParticle.Play();
                 Invoke("loadNextScene", 1f); // parameterise time
                 break;
 
             default:
                 state = State.dying;
                 audioSource.Stop();
+                explosionParticle.Play();
                 audioSource.PlayOneShot(deathSound);
                 Invoke("gameOver", 1f);
                 
