@@ -22,10 +22,14 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (state != State.dying)
+        if (state == State.live)
         {
             thrust();
             rotate();
+        }
+        else
+        {
+            audioSource.Stop();
         }
 	}
 
@@ -69,6 +73,8 @@ public class Rocket : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(state != State.live){return;} // ignore collision if dead or transcending
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
@@ -86,6 +92,7 @@ public class Rocket : MonoBehaviour {
             default:
                 state = State.dying;
                 Invoke("gameOver", 1f);
+                
                 break;
         }
 
