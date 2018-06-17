@@ -6,14 +6,12 @@ using UnityEngine;
 public class Oscillator : MonoBehaviour {
 
     [SerializeField] Vector3 movementVector;
+    [SerializeField] float period = 2f;
 
-    // TODO remove from inspector later
     [Range(0,1)]
     [SerializeField]
     float movementFactor; // 0 for not moved, 1 for fully moved
 
-    bool increase = false;
-    bool decrease = false;
     Vector3 startingPos;
 
 	// Use this for initialization
@@ -22,28 +20,18 @@ public class Oscillator : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {                            //Mathf.Epsilon is smallest float number
+        if (period <= Mathf.Epsilon){ return; } //protect against zero period
+
+        float cycles = Time.time / period; // grows continually from 0
+        const float tau = Mathf.PI * 2;
+        float rawSinWave = Mathf.Sin(cycles * tau); // goes from -1 to 1
+
+        movementFactor = rawSinWave / 2f + 0.5f;
         Vector3 offset = movementVector * movementFactor;
         this.transform.position = startingPos + offset;
-        if(movementFactor <= 0)
-        {
-            movementFactor += 0.01f;
-            increase = true;
-            decrease = false;
-        }
-        else if(movementFactor >= 1)
-        {
-            movementFactor -= 0.01f;
-            increase = false;
-            decrease = true;
-        }
-        else if (increase && !decrease)
-        {
-            movementFactor += 0.01f;
-        }
-        else if (decrease && !increase)
-        {
-            movementFactor -= 0.01f;
-        }
+        
+        
+        
 	}
 }

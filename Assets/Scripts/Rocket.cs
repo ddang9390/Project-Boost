@@ -10,6 +10,7 @@ public class Rocket : MonoBehaviour {
 
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+    [SerializeField] float levelLoadDelay = 1f;
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip winSound;
@@ -94,7 +95,7 @@ public class Rocket : MonoBehaviour {
                 audioSource.Stop();
                 audioSource.PlayOneShot(winSound);
                 successParticle.Play();
-                Invoke("loadNextScene", 1f); // parameterise time
+                Invoke("loadNextScene", levelLoadDelay);
                 break;
 
             default:
@@ -102,7 +103,7 @@ public class Rocket : MonoBehaviour {
                 audioSource.Stop();
                 explosionParticle.Play();
                 audioSource.PlayOneShot(deathSound);
-                Invoke("gameOver", 1f);
+                Invoke("gameOver", levelLoadDelay);
                 
                 break;
         }
