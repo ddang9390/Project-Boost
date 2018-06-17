@@ -62,9 +62,21 @@ public class Rocket : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.tag.Equals("Friendly"))
+        switch (collision.gameObject.tag)
         {
-            Debug.Log("I'm hit");
+            case "Friendly":
+                Debug.Log("I'm ok");
+                break;
+            case "Fuel":
+                Debug.Log("Getting fuel");
+                break;
+            case "Goal":
+                Debug.Log("Loading next level");
+                break;
+            default:
+                Debug.Log("I'm hit");
+                break;
         }
+
     }
 }
