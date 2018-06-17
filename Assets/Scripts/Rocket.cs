@@ -7,8 +7,11 @@ public class Rocket : MonoBehaviour {
     Rigidbody rigidBody;
     AudioSource audioSource;
 
-	// Use this for initialization
-	void Start () {
+
+    [SerializeField] float rcsThrust = 100f;
+    [SerializeField] float mainThrust = 100f;
+    // Use this for initialization
+    void Start () {
         rigidBody = this.GetComponent<Rigidbody>();
         audioSource = this.GetComponent<AudioSource>();
 	}
@@ -23,14 +26,16 @@ public class Rocket : MonoBehaviour {
     {
         rigidBody.freezeRotation = true; // take manual control of rotation
 
+        float rotationSpeed = rcsThrust * Time.deltaTime;
         // Rotate ship
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.forward);
+            
+            transform.Rotate(Vector3.forward * rotationSpeed);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(Vector3.back);
+            transform.Rotate(Vector3.back * rotationSpeed);
         }
 
         rigidBody.freezeRotation = false; // resume control of physics
@@ -38,10 +43,12 @@ public class Rocket : MonoBehaviour {
 
     private void thrust()
     {
+
+        float thrustSpeed = mainThrust * Time.deltaTime;
         // Can thrust while rotating
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(Vector3.up);
+            rigidBody.AddRelativeForce(Vector3.up * thrustSpeed);
             if (!audioSource.isPlaying) // so it doesn't layer on top of each other
             {
                 audioSource.Play();
@@ -50,6 +57,14 @@ public class Rocket : MonoBehaviour {
         else if (audioSource.isPlaying)
         {
             audioSource.Stop();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.tag.Equals("Friendly"))
+        {
+            Debug.Log("I'm hit");
         }
     }
 }

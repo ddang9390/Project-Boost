@@ -154,11 +154,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1583916752766758, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
       propertyPath: m_Name
-      value: Launch Pad (1)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4347650262691168, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
       propertyPath: m_LocalScale.x
       value: 17.299316
+      objectReference: {fileID: 0}
+    - target: {fileID: 23519691129274542, guid: 5d702f3975d2f524eb7b3696e5a0c6ef,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b03dc0b9a69ec64dbcab1413ac17d7c, type: 2}
+    - target: {fileID: 1583916752766758, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
@@ -414,7 +423,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1583916752766758, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
       propertyPath: m_Name
-      value: Launch Pad (2)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4347650262691168, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
       propertyPath: m_LocalScale.x
@@ -424,6 +433,15 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 2.3060424
       objectReference: {fileID: 0}
+    - target: {fileID: 1583916752766758, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 23519691129274542, guid: 5d702f3975d2f524eb7b3696e5a0c6ef,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b03dc0b9a69ec64dbcab1413ac17d7c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d702f3975d2f524eb7b3696e5a0c6ef, type: 2}
   m_IsPrefabParent: 0
