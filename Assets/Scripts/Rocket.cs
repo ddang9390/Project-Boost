@@ -2,14 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
     Rigidbody rigidBody;
     AudioSource audioSource;
 
-
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+
+    enum State { live, dying, transcend};
+    State state = State.live;
+
     // Use this for initialization
     void Start () {
         rigidBody = this.GetComponent<Rigidbody>();
@@ -65,18 +69,25 @@ public class Rocket : MonoBehaviour {
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("I'm ok");
                 break;
+
             case "Fuel":
-                Debug.Log("Getting fuel");
+                
                 break;
+
             case "Goal":
-                Debug.Log("Loading next level");
+                Invoke("loadNextScene", 1f); // parameterise time
                 break;
+
             default:
-                Debug.Log("I'm hit");
+                SceneManager.LoadScene(0);
                 break;
         }
 
+    }
+
+    private void loadNextScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }
