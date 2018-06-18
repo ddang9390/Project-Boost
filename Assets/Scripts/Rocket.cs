@@ -132,13 +132,20 @@ public class Rocket : MonoBehaviour {
     }
 
     private void gameOver()
-    {   
+    {
         SceneManager.LoadScene(0);
     }
 
     private void loadNextScene()
     {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if(nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+
         state = State.live;   
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }

@@ -741,7 +741,6 @@ MonoBehaviour:
   thrusterParticle: {fileID: 198637526781854292}
   explosionParticle: {fileID: 198504263655379674}
   successParticle: {fileID: 198238200795680194}
-  debug: 1
 --- !u!198 &198238200795680194
 ParticleSystem:
   m_ObjectHideFlags: 1
